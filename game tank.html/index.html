@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🎮 游戏大厅 | 坦克大战豪华版</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ========== 游戏大厅 ========== -->
+    <div class="hall-container">
+        <header>
+            <h1>🎮 街机游戏大厅</h1>
+            <p>选择一个游戏开始挑战</p>
+        </header>
+        
+        <div class="game-grid">
+            <div class="game-card" data-game="tank">
+                <div class="game-icon tank-icon">🛸</div>
+                <h2>坦克大战 豪华版</h2>
+                <p>经典像素坦克战 + 道具系统 + Boss战 + 连击系统 + 每日挑战</p>
+                <div class="game-tags">
+                    <span>射击</span>
+                    <span>经典</span>
+                    <span>单人</span>
+                    <span>Boss战</span>
+                </div>
+                <button class="play-btn">▶ 开始游戏</button>
+            </div>
+            
+            <div class="game-card disabled">
+                <div class="game-icon">❓</div>
+                <h2>敬请期待</h2>
+                <p>更多精彩游戏即将上线...</p>
+                <div class="game-tags"><span>开发中</span></div>
+                <button class="play-btn" disabled>🔒 即将推出</button>
+            </div>
+        </div>
+        
+        <footer><p>💡 提示：积分永久保存，连击越高得分越多！</p></footer>
+    </div>
+    
+    <!-- ========== 坦克大战游戏容器 ========== -->
+    <div id="tankGameContainer" style="display: none;">
+        <button class="back-btn" id="backToHallBtn">← 返回大厅</button>
+        
+        <div class="game-container">
+            <!-- 难度选择 -->
+            <div class="difficulty-panel" id="difficultyPanel">
+                <span>🎮 难度：</span>
+                <button class="difficulty-btn" data-diff="easy">🍃 简单</button>
+                <button class="difficulty-btn active" data-diff="normal">⚡ 普通</button>
+                <button class="difficulty-btn" data-diff="hard">🔥 困难</button>
+            </div>
+            
+            <!-- 每日挑战 -->
+            <div class="daily-panel" id="dailyPanel">
+                <span>📅 今日挑战：</span>
+                <span id="dailyMission">击毁 10 个敌人</span>
+                <span id="dailyReward">奖励 +200</span>
+                <span id="dailyStatus">未完成</span>
+            </div>
+            
+            <div class="top-bar">
+                <div class="currency">💰 总积分: <span id="totalScore">0</span></div>
+                <button id="shopBtn">🛒 皮肤商店</button>
+            </div>
+            
+            <canvas id="gameCanvas" width="900" height="700"></canvas>
+            
+            <div class="info-panel">
+                <div class="stats">
+                    <div>🏆 本局: <span id="score">0</span></div>
+                    <div>❤️ 生命: <span id="lives">3</span></div>
+                    <div>💀 击毁: <span id="kills">0</span></div>
+                </div>
+                <div class="mission">⚡ 保护基地 ⚡</div>
+                <div class="powerup-slot">🎒 道具: <span id="powerupSlot">无</span></div>
+                <button id="restartBtn">🔄 重新开始</button>
+            </div>
+            
+            <div class="controls">
+                <div>🎮 WASD / 方向键 移动 | 🔫 空格 / J 开炮</div>
+                <div>✨ 连击越高得分越多 | 💥 道具：炸弹(全屏) 护盾(无敌) 双倍子弹</div>
+            </div>
+        </div>
+        
+        <!-- 连击显示 -->
+        <div class="combo-panel" id="comboPanel">
+            🔥 连击 x<span id="comboCount">0</span>
+            <span id="comboMultiplier">(x1)</span>
+        </div>
+        
+        <!-- 商店模态框 -->
+        <div id="shopModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>🎨 皮肤商店</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="currency-display">💰 当前积分: <span id="modalTotalScore">0</span></div>
+                <div id="skinGrid" class="skin-grid"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

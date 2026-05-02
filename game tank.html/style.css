@@ -1,0 +1,483 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', 'Press Start 2P', monospace;
+    background: linear-gradient(135deg, #0a0f2e 0%, #0a1a2a 100%);
+    min-height: 100vh;
+}
+
+/* 游戏大厅 */
+.hall-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+header h1 {
+    font-size: 3rem;
+    color: #ffdd88;
+    text-shadow: 4px 4px 0 #5a3a1a;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+}
+
+header p {
+    color: #aaccdd;
+    font-size: 1rem;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.game-card {
+    background: linear-gradient(145deg, #1a2a2a 0%, #0d1a1a 100%);
+    border-radius: 24px;
+    padding: 25px 20px;
+    text-align: center;
+    border: 2px solid #4a6a3e;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.game-card:not(.disabled):hover {
+    transform: translateY(-8px);
+    border-color: #ffaa44;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+.game-card.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.game-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+}
+
+.tank-icon {
+    animation: shake 3s ease-in-out infinite;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(2px, -2px); }
+    75% { transform: translate(-2px, 2px); }
+}
+
+.game-card h2 {
+    color: #ffeebb;
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+}
+
+.game-card p {
+    color: #aabbcc;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.game-tags {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.game-tags span {
+    background: #2a3a2a;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    color: #88ccaa;
+}
+
+.play-btn {
+    background: #5a7a3a;
+    border: none;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 10px 25px;
+    border-radius: 40px;
+    color: #ffeebb;
+    cursor: pointer;
+    transition: 0.1s linear;
+    box-shadow: 0 4px 0 #2a3a1a;
+}
+
+.play-btn:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+.play-btn:disabled {
+    background: #3a3a3a;
+    cursor: not-allowed;
+}
+
+.back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #5a3a2a;
+    border: none;
+    font-family: monospace;
+    font-size: 1rem;
+    padding: 8px 20px;
+    border-radius: 30px;
+    color: #ffdd99;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 3px 0 #2a1a0a;
+}
+
+.back-btn:active {
+    transform: translateY(2px);
+}
+
+/* 游戏主界面 */
+.game-container {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    margin: 20px;
+    position: relative;
+}
+
+.difficulty-panel {
+    background: #1a1a2a;
+    padding: 8px 15px;
+    border-radius: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.difficulty-panel span {
+    color: #ffdd88;
+}
+
+.difficulty-btn {
+    background: #3a3a4a;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: monospace;
+    color: #ccc;
+}
+
+.difficulty-btn.active {
+    background: #ffaa44;
+    color: #1a1a1a;
+    box-shadow: 0 0 5px #ffaa44;
+}
+
+.daily-panel {
+    background: #2a2a3a;
+    padding: 8px 15px;
+    border-radius: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 20px;
+    font-size: 0.8rem;
+    justify-content: center;
+    color: #aaccdd;
+}
+
+#dailyStatus {
+    color: #ffaa44;
+}
+
+#dailyStatus.completed {
+    color: #44ff88;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px 20px;
+    background: #0d0f17;
+    border-radius: 12px;
+    border: 1px solid #ffaa44;
+}
+
+.currency {
+    color: #ffdd88;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+#shopBtn {
+    background: #7a5a3a;
+    border: none;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 6px 20px;
+    border-radius: 30px;
+    color: #ffeebb;
+    cursor: pointer;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 0 0 3px #6b5a3e;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+
+.info-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #0d0f17;
+    border-radius: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.stats {
+    display: flex;
+    gap: 30px;
+    color: #e8e2c7;
+    font-weight: bold;
+}
+
+.stats span {
+    background: #000000aa;
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: #ffe090;
+    margin-left: 8px;
+}
+
+.mission {
+    color: #ffaa44;
+    background: #2a1a0a;
+    padding: 5px 15px;
+    border-radius: 30px;
+}
+
+.powerup-slot {
+    background: #0d0f17;
+    padding: 5px 15px;
+    border-radius: 20px;
+    color: #ffdd88;
+}
+
+.controls {
+    text-align: center;
+    margin-top: 12px;
+    background: #000000aa;
+    padding: 8px 20px;
+    border-radius: 30px;
+    color: #b8d0c0;
+    font-size: 0.85rem;
+}
+
+/* 连击面板 */
+.combo-panel {
+    position: fixed;
+    top: 100px;
+    right: 30px;
+    background: #1a1a2aee;
+    padding: 10px 20px;
+    border-radius: 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ff8844;
+    text-shadow: 0 0 5px #ff4400;
+    transition: 0.1s;
+    z-index: 50;
+    backdrop-filter: blur(5px);
+}
+
+.combo-panel.combo-active {
+    transform: scale(1.05);
+    color: #ffaa44;
+}
+
+/* 商店模态框 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1a1a2e 0%, #0d0d1a 100%);
+    margin: 2% auto;
+    padding: 25px;
+    border: 2px solid #ffaa44;
+    border-radius: 28px;
+    width: 90%;
+    max-width: 1100px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ffaa44;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    color: #ffdd88;
+    font-size: 1.8rem;
+}
+
+.close {
+    color: #ffaa44;
+    font-size: 36px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close:hover {
+    background: #ffaa4422;
+}
+
+.currency-display {
+    background: #2a2a3a;
+    border-radius: 60px;
+    padding: 12px 25px;
+    margin-bottom: 25px;
+    display: inline-block;
+}
+
+.currency-display span {
+    color: #ffdd88;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.skin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.skin-card {
+    background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+    border-radius: 20px;
+    padding: 15px;
+    text-align: center;
+    transition: all 0.2s ease;
+    border: 2px solid #4a4a4a;
+    position: relative;
+}
+
+.skin-card.owned {
+    border-color: #44ff88;
+}
+
+.skin-card.equipped {
+    border-color: #ffaa44;
+    background: linear-gradient(145deg, #2a2a1a 0%, #1a1a0d 100%);
+    box-shadow: 0 0 15px #ffaa44;
+}
+
+.skin-preview-container {
+    background: #0a1a0a;
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.skin-preview-canvas {
+    background: #1a2a1a;
+    border-radius: 8px;
+    image-rendering: pixelated;
+}
+
+.skin-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 8px 0;
+    color: #ffeebb;
+}
+
+.skin-price {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.skin-price.owned {
+    color: #44ff88;
+}
+
+.buy-btn, .equip-btn {
+    background: #5a7a3a;
+    border: none;
+    font-family: monospace;
+    padding: 6px 20px;
+    border-radius: 30px;
+    color: #ffeebb;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.equip-btn {
+    background: #7a5a3a;
+}
+
+.equip-btn.equipped {
+    background: #44aa66;
+}
+
+footer {
+    text-align: center;
+    color: #668877;
+    font-size: 0.8rem;
+    padding-top: 30px;
+    border-top: 1px solid #2a4a3a;
+}
+
+@media (max-width: 768px) {
+    .game-grid { grid-template-columns: 1fr; }
+    .stats { gap: 10px; flex-wrap: wrap; }
+    .combo-panel { top: auto; bottom: 20px; right: 10px; font-size: 0.8rem; padding: 5px 10px; }
+}
